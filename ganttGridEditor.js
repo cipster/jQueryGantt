@@ -662,5 +662,6 @@ GridEditor.prototype.openFullEditor = function (task, taskRow) {
   }
 
   var ndo = createBlackPage(800, 500).append(taskEditor);
+    $('#__blackpopup__').modal('show');
 
 };

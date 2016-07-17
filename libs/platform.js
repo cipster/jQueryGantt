@@ -840,12 +840,9 @@ function openBlackPopup(url, width, height, onCloseCallBack, iframeId) {
     $("#__blackpopup__").remove();
 
     var bg = $("<div>").attr("id", "__blackpopup__");
-    //bg.css({position:'fixed',top:0, left:0,width:'100%',height:'100%', backgroundImage:"url('"+contextPath+"/applications/teamwork/images/black_70.png')",textAlign:'center'});
     bg.css({position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', textAlign: 'center'});
 
     //add black only if not already in blackpupup
-    if (window.name != iframeId)
-        bg.css({backgroundImage: "url('" + contextPath + "/applications/teamwork/images/black_70.png')"});
 
     bg.append("<iframe id='" + iframeId + "' name='" + iframeId + "' frameborder='0'></iframe>");
     bg.bringToFront();
@@ -868,8 +865,8 @@ function openBlackPopup(url, width, height, onCloseCallBack, iframeId) {
     bg.find("iframe:first").attr("src", url).css({width: width, height: height, top: 100, border: '8px solid #909090', backgroundColor: '#ffffff'});
 
     var bdiv = $("<div>").css({width: width, position: "relative", height: "5px", textAlign: "right", margin: "auto"});
-    bdiv.append("<img src=\"res/closeBig.png\" style='cursor:pointer;position:absolute;right:-40px;top:30px;'>");
-    bdiv.find("img:first").click(function () {
+    bdiv.append("<i class=\"fa fa-times\" style='cursor:pointer;position:absolute;right:-40px;top:30px;'>");
+    bdiv.find("i.fa-times").click(function () {
         bg.trigger("close");
 
     });
@@ -877,7 +874,6 @@ function openBlackPopup(url, width, height, onCloseCallBack, iframeId) {
     bg.prepend(bdiv);
     $("body").append(bg);
 }
-
 
 //returns a jquery object where to write content
 function createBlackPage(width, height, onCloseCallBack) {
@@ -888,48 +884,38 @@ function createBlackPage(width, height, onCloseCallBack) {
 
     $("#__blackpopup__").remove();
 
-    var bg = $("<div>").attr("id", "__blackpopup__");
-    bg.css({position: 'fixed', top: "0px", paddingTop: "50px", left: 0, width: '100%', height: '100%', backgroundImage: "url('res/img/black_70.png')"});
-    bg.append("<div id='bwinPopupd' name='bwinPopupd'></div>");
-    bg.bringToFront();
+    var $modalDialogBackdrop = $('<div class="modal fade" data-backdrop="static" data-focus-on="input:first">').attr("id", "__blackpopup__");
+    var $modalDialog = $('<div id="bwinPopupd" name="bwinPopupd" class="modal-dialog"></div>');
+    var $modalContent = $('<div class="modal-content"></div>');
+    var $headerDiv = $('<div class="modal-header"></div>');
+    var $closeButton = $('<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">&Icirc;nchide</span></button> ');
+    var $modalBody = $('<div class="modal-body"></div>');
 
-    var ret = bg.find("#bwinPopupd");
-    ret.css({
-        width: width,
-        height: height,
-        top: 10,
-        "-moz-box-shadow": '1px 1px 6px #333333',
-        overflow: 'auto',
-        "-webkit-box-shadow": '1px 1px 6px #333333',
-        border: '8px solid #777',
-        backgroundColor: "#fff",
-        margin: "auto"
+    $headerDiv.append($closeButton);
+    $closeButton.click(function () {
+        $modalDialogBackdrop.modal('close');
+        $modalDialogBackdrop.trigger('close');
     });
-
-    var bdiv = $("<div>").css({width: width, position: "relative", height: "0px", textAlign: "right", margin: "auto"});
-    var img = $("<img src='res/closeBig.png' style='cursor:pointer;position:absolute;right:-40px;top:5px;' title='close'>");
-    bdiv.append(img);
-    img.click(function () {
-        bg.trigger("close");
-    });
-
-    bg.prepend(bdiv);
-    $("body").append(bg);
+    $modalContent.append($headerDiv);
+    $modalContent.append($modalBody);
+    $modalDialog.append($modalContent);
+    $modalDialogBackdrop.append($modalDialog);
+    $("body").append($modalDialogBackdrop);
 
     //close call callback
-    bg.bind("close", function () {
-        bg.slideUp(300, function () {
-            bg.remove();
+    $modalDialogBackdrop.bind("close", function () {
+        $modalDialogBackdrop.slideUp(300, function () {
+            $modalDialogBackdrop.remove();
             if (typeof(onCloseCallBack) == "function")
                 onCloseCallBack();
         });
     });
 
     //destroy do not call callback
-    bg.bind("destroy", function () {
-        bg.remove();
+    $modalDialogBackdrop.bind("destroy", function () {
+        $modalDialogBackdrop.remove();
     });
-    return ret;
+    return $modalBody;
 }
 
 
@@ -943,7 +929,7 @@ function getBlackPopup() {
 
 
 function closeBlackPopup() {
-    getBlackPopup().trigger("close");
+    getBlackPopup().modal("close");
 }
 
 
