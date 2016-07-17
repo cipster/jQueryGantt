@@ -706,7 +706,8 @@ var showNotification = function (message, title, type) {
     if (typeof(type) === 'undefined') {
         type = 'success';
     }
-    if(toastr) {
+    var toastNotifications = toastr;
+    if(toastNotifications) {
         toastr.options = {
             closeButton: true,
             debug: false,
