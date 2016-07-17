@@ -702,33 +702,6 @@ jQuery.fn.clearErrorAlert = function () {
     return this;
 };
 
-var showNotification = function (message, title, type) {
-    if (typeof(type) === 'undefined') {
-        type = 'success';
-    }
-    var toastNotifications = toastr;
-    if(toastNotifications) {
-        toastr.options = {
-            closeButton: true,
-            debug: false,
-            progressBar: false,
-            positionClass: 'toast-top-center',
-            onclick: null,
-            showDuration: '7500',
-            hideDuration: '1500',
-            timeOut: '10500',
-            extendedTimeOut: '10000',
-            showEasing: 'swing',
-            hideEasing: 'linear',
-            showMethod: 'fadeIn',
-            hideMethod: 'fadeOut'
-        };
-        toastr[type](message, title);
-    } else {
-        NotificationService.showNotification(message, title, type);
-    }
-};
-
 jQuery.fn.createErrorAlert = function (errorCode, message) {
     this.each(function () {
         var el = $(this);
@@ -736,7 +709,7 @@ jQuery.fn.createErrorAlert = function (errorCode, message) {
         if ($("#" + el.attr("id") + "error").size() <= 0) {
             var errMess = (errorCode ? errorCode : "") + ": " + (message ? message : "");
             var err = "<img width='17' heigh='17' id=\"" + el.attr("id") + "error\" error='1'";
-            err += " onclick=\"showNotification($(this).attr('title'), '', 'error')\" border='0' align='absmiddle'>";
+            err += " onclick=\"NotificationService.showNotification($(this).attr('title'), '', 'error')\" border='0' align='absmiddle'>";
             err = $(err);
             err.attr("title", errMess).attr("src", "res/alert.gif");
             el.after(err);
@@ -750,7 +723,7 @@ jQuery.fn.createErrorAlert = function (errorCode, message) {
 function jsonErrorHandling(response) {
     if (!response.ok) {
         if (response.message)
-            showNotification("ERROR:\n" + response.message, '', 'error');
+            NotificationService.showNotification("ERROR:\n" + response.message, '', 'error');
         for (var i in response.clientEntryErrors) {
             var err = response.clientEntryErrors[i];
             $(":input[name=" + err.name + "]").createErrorAlert(err.error);

@@ -429,13 +429,13 @@ GanttMaster.prototype.loadTasks = function (tasks, selectedRow) {
           var err = this.__currentTransaction.errors.pop();
           msg = msg + err.msg + "\n\n";
         }
-        showNotification(msg, '', 'warning');
+        NotificationService.showNotification(msg, '', 'warning');
       }
       this.removeAllLinks(task,false);
     }
 
     if (!task.setPeriod(task.start, task.end)) {
-      showNotification(GanttMaster.messages.GANNT_ERROR_LOADING_DATA_TASK_REMOVED + "\n" + task.name + "\n" +GanttMaster.messages.ERROR_SETTING_DATES, '', 'error');
+      NotificationService.showNotification(GanttMaster.messages.GANNT_ERROR_LOADING_DATA_TASK_REMOVED + "\n" + task.name + "\n" +GanttMaster.messages.ERROR_SETTING_DATES, '', 'error');
         //remove task from in-memory collection
       this.tasks.splice(task.getRow(), 1);
     } else {
@@ -894,7 +894,7 @@ GanttMaster.prototype.endTransaction = function () {
       var err = this.__currentTransaction.errors[i];
       msg = msg + err.msg + "\n\n";
     }
-    showNotification(msg, '', 'error');
+    NotificationService.showNotification(msg, '', 'error');
   }
   //reset transaction
   this.__currentTransaction = undefined;
