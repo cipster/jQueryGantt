@@ -885,7 +885,7 @@ function createBlackPage(width, height, onCloseCallBack) {
     $("#__blackpopup__").remove();
 
     var $modalDialogBackdrop = $('<div class="modal fade" data-backdrop="static" data-focus-on="input:first">').attr("id", "__blackpopup__");
-    var $modalDialog = $('<div id="bwinPopupd" name="bwinPopupd" class="modal-dialog"></div>');
+    var $modalDialog = $('<div id="bwinPopupd" name="bwinPopupd" class="modal-dialog modal-md"></div>');
     var $modalContent = $('<div class="modal-content"></div>');
     var $headerDiv = $('<div class="modal-header"></div>');
     var $closeButton = $('<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">&Icirc;nchide</span></button> ');
