@@ -655,7 +655,7 @@ GridEditor.prototype.openFullEditor = function (task, taskRow) {
       task.changeStatus(taskEditor.find("#status").attr("status"));
 
       if (self.master.endTransaction()) {
-        $("#__blackpopup__").trigger("close");
+        $("#__blackpopup__").modal("hide");
       }
 
     });

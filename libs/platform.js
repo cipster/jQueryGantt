@@ -877,11 +877,6 @@ function openBlackPopup(url, width, height, onCloseCallBack, iframeId) {
 
 //returns a jquery object where to write content
 function createBlackPage(width, height, onCloseCallBack) {
-    if (!width)
-        width = '900px';
-    if (!height)
-        height = '730px';
-
     $("#__blackpopup__").remove();
 
     var $modalDialogBackdrop = $('<div class="modal fade" data-backdrop="static" data-focus-on="input:first">').attr("id", "__blackpopup__");
@@ -892,29 +887,17 @@ function createBlackPage(width, height, onCloseCallBack) {
     var $modalBody = $('<div class="modal-body"></div>');
 
     $headerDiv.append($closeButton);
-    $closeButton.click(function () {
-        $modalDialogBackdrop.modal('close');
-        $modalDialogBackdrop.trigger('close');
-    });
     $modalContent.append($headerDiv);
     $modalContent.append($modalBody);
     $modalDialog.append($modalContent);
     $modalDialogBackdrop.append($modalDialog);
     $("body").append($modalDialogBackdrop);
 
-    //close call callback
-    $modalDialogBackdrop.bind("close", function () {
-        $modalDialogBackdrop.slideUp(300, function () {
-            $modalDialogBackdrop.remove();
-            if (typeof(onCloseCallBack) == "function")
-                onCloseCallBack();
-        });
+    //destroy do not call callback
+    $('#__blackpopup__').bind("close.bs.modal", function () {
+        $('#__blackpopup__').remove();
     });
 
-    //destroy do not call callback
-    $modalDialogBackdrop.bind("destroy", function () {
-        $modalDialogBackdrop.remove();
-    });
     return $modalBody;
 }
 
@@ -929,7 +912,7 @@ function getBlackPopup() {
 
 
 function closeBlackPopup() {
-    getBlackPopup().modal("close");
+    getBlackPopup().modal("hide");
 }
 
 
