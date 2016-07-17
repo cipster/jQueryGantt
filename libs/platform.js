@@ -706,23 +706,26 @@ var showNotification = function (message, title, type) {
     if (typeof(type) === 'undefined') {
         type = 'success';
     }
-
-    toastr.options = {
-        closeButton: true,
-        debug: false,
-        progressBar: false,
-        positionClass: 'toast-top-center',
-        onclick: null,
-        showDuration: '7500',
-        hideDuration: '1500',
-        timeOut: '10500',
-        extendedTimeOut: '10000',
-        showEasing: 'swing',
-        hideEasing: 'linear',
-        showMethod: 'fadeIn',
-        hideMethod: 'fadeOut'
-    };
-    toastr[type](message, title);
+    if(toastr) {
+        toastr.options = {
+            closeButton: true,
+            debug: false,
+            progressBar: false,
+            positionClass: 'toast-top-center',
+            onclick: null,
+            showDuration: '7500',
+            hideDuration: '1500',
+            timeOut: '10500',
+            extendedTimeOut: '10000',
+            showEasing: 'swing',
+            hideEasing: 'linear',
+            showMethod: 'fadeIn',
+            hideMethod: 'fadeOut'
+        };
+        toastr[type](message, title);
+    } else {
+        NotificationService.showNotification(message, title, type);
+    }
 };
 
 jQuery.fn.createErrorAlert = function (errorCode, message) {
