@@ -77,8 +77,6 @@ BODY, TBODY {
 
 a {
   text-decoration: none;
-  font-weight: bold;
-  /*color: #16ABDD;*/
   color: #2b9af3;
   text-rendering: optimizelegibility;
   -webkit-font-smoothing: antialiased;
