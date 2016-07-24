@@ -431,8 +431,9 @@
             resourceEditor.find("[resId=new]").each(function () {
                 var row = $(this);
                 var name = row.find("input[name]").val();
+                var idPersoana = row.find("select[persoana]").val();
                 if (name && name != "")
-                    newRes.push(new Resource("tmp_" + new Date().getTime(), name));
+                    newRes.push(new Resource("tmp_" + new Date().getTime(), name, idPersoana));
             });
 
             ge.resources = newRes;

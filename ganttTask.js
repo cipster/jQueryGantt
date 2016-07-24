@@ -1017,9 +1017,10 @@ function Assignment(id, resourceId, roleId, effort) {
 
 
 //<%------------------------------------------------------------------------  RESOURCE ---------------------------------------------------------------%>
-function Resource(id, name) {
+function Resource(id, name, idPersoana) {
   this.id = id;
   this.name = name;
+  this.idPersoana = idPersoana;
 }
 
 
