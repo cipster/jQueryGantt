@@ -112,13 +112,6 @@ h3 {
   margin: 0;
 }
 
-h4 {
-  font-size:16px;
-  padding:5px 0;
-  color:#617777;
-  margin:0
-}
-
 #savingMessage{
   background-color:#E3EDED;
   display:none;
